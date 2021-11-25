@@ -1,0 +1,60 @@
+<html>
+
+<head>
+	<title>Concussion Diagnosis</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+
+<body>
+
+	<div class="container h-100 d-flex justify-content-center">
+		<div class="jumbotron my-auto">
+			<h1 class="display-3">
+				<p id="welcomeMessage">Let's begin your evaluation</p>
+			</h1>
+			<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+				data-bs-target="#uploadModalCenteredScrollable">Go</button>
+		</div>
+	</div>
+
+	<div class="container h-1 d-flex justify-content-center">
+		<div class="jumbotron my-auto">
+
+			<div class="modal fade" id="uploadModalCenteredScrollable" tabindex="-1"
+				aria-labelledby="exampleModalCenteredScrollableTitle" aria-hidden="true" style="display: none;">
+				<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								onClick="window.location.reload();" aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<h2 id="question">Were you involved in a collision or accident in past 24 hours?</h6>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button id="red" type="button" class="btn btn-choice btn-danger" data-bs-dismiss="modal">Yes</button>
+							<button id="yellow" type="button" class="btn btn-choice btn-warning" data-bs-dismiss="modal">Maybe</button>
+							<button id="green" type="button" class="btn btn-choice btn-success" data-bs-dismiss="modal">No</button>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+		crossorigin="anonymous"></script>
+	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="js/main.js"></script>
+</body>
+
+</html>
