@@ -69,7 +69,7 @@ function diagnosis() {
 
         case 110: {
             if (currentAnswer == 1.0) {
-                // Rule 10 If person is experiencing repeated vomitting task is to display high risk screen
+                displayHighRisk(); // Rule 10 If person is experiencing repeated vomitting task is to display high risk screen
             } else if (currentAnswer == -1.0) {
                 setNextHypothesis(111); //Rule 11 If person is not experiencing vomitting check for slurred speech
             }
@@ -78,7 +78,7 @@ function diagnosis() {
 
         case 111: {
             if (currentAnswer == 1.0) {
-                // Rule 12 If person is experiencing slurred speech task is to display high risk screen
+                displayHighRisk(); // Rule 12 If person is experiencing slurred speech task is to display high risk screen
             } else if (currentAnswer == -1.0) {
                 setNextHypothesis(112); // Rule 13 If person is not experiencing vomitting check for fever
             }
@@ -87,7 +87,7 @@ function diagnosis() {
 
         case 112: {
             if (currentAnswer == 1.0) {
-                // Rule 14 If person is experiencing fever task is to display high risk screen
+                displayHighRisk(); // Rule 14 If person is experiencing fever task is to display high risk screen
             } else if (currentAnswer == -1.0) {
                 setNextHypothesis(113); // Rule 15 If person is not experiencing fever check for drowsiness
             }
@@ -96,7 +96,7 @@ function diagnosis() {
 
         case 113: {
             if (currentAnswer == 1.0) {
-                // Rule 16 If person is experiencing drowsiness task is to display high risk screen
+                displayHighRisk(); // Rule 16 If person is experiencing drowsiness task is to display high risk screen
             } else if (currentAnswer == -1.0) {
                 setNextHypothesis(106); // Rule 17 If person is not experiencing drowsiness check for other symptoms
             }
@@ -107,7 +107,7 @@ function diagnosis() {
             if (currentAnswer == 1.0) {
                 setNextHypothesis(106); // Rule 18 If person is not feeling right perform symptoms check
             } else if (currentAnswer == -1.0) {
-                // Rule 19 If person feels fine then task is to display low risk screen
+                displayLowRisk(); // Rule 19 If person feels fine then task is to display low risk screen
             }
             break;
         }
@@ -183,4 +183,25 @@ function setBinary() {
 
 function setTernary() {
     document.getElementById("yellow").style.display = 'block';
+}
+
+function displayHighRisk() {
+    document.getElementById("question").innerHTML = "You are at a high risk of concussion, dial 911 immediately!";
+    hideSelectionButtons();
+}
+
+function displayModerateRisk() {
+    document.getElementById("question").innerHTML = "You are at a moderate risk of concussion, visiting a physician is recomended.";
+    hideSelectionButtons();
+}
+
+function displayLowRisk() {
+    document.getElementById("question").innerHTML = "You are at a low risk of concussion, visiting a physician recommended if symptoms last.";
+    hideSelectionButtons();
+}
+
+function hideSelectionButtons() {
+    document.getElementById("yellow").style.display = 'none';
+    document.getElementById("red").style.display = 'none';
+    document.getElementById("green").style.display = 'none';
 }
