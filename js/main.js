@@ -11,8 +11,8 @@ var hypothesisMap = new Map();
 
 hypothesisMap.set(101, new Hypothesis("Previously injured", "Were you injured or involved in an accident in the past 24 hours", null));
 hypothesisMap.set(102, new Hypothesis("Conciousness check", "Did you faint or fall unconciouss?", null));
-hypothesisMap.set(103, new Hypothesis("Day check", "Do you remember what day of the week it is?", null));
-hypothesisMap.set(104, new Hypothesis("Meal check", "Do you remember what you ate last?", null));
+hypothesisMap.set(103, new Hypothesis("Day check", "Are you unsure of the day of the week?", null));
+hypothesisMap.set(104, new Hypothesis("Meal check", "Are you unsure of what you ate last?", null));
 hypothesisMap.set(105, new Hypothesis("Feel right", "Are you just not feeling right?", null));
 hypothesisMap.set(106, new Hypothesis("Dizziness", "Are you feeling dizzy?", 0.7));
 hypothesisMap.set(107, new Hypothesis("Clumsy", "Have you noticed yourself dropping things?", 0.6));
@@ -51,18 +51,18 @@ function diagnosis() {
 
         case 103: {
             if (currentAnswer == 1.0) { 
-                setNextHypothesis(104); // Rule 6 If remembers day of week perform meal check
+                setNextHypothesis(110); // Rule 6 If does not remember day of week perform danger check
             } else if (currentAnswer == -1.0) {
-                setNextHypothesis(110); // Rule 7 If does not remember day of week perform danger check   
+                setNextHypothesis(104); // Rule 7 If remembers day of week perform meal check
             }
             break;
         }
 
         case 104: {
             if (currentAnswer == 1.0) { 
-                setNextHypothesis(105); // Rule 8 If remembers previous meal perform feel right check
+                setNextHypothesis(110); // Rule 8 If person does not remember meal perform danger check
             } else if (currentAnswer == -1.0) {
-                setNextHypothesis(110); // Rule 9 If person does not remember meal perform danger check
+                setNextHypothesis(105); // Rule 9 If remembers previous meal perform feel right check
             }
             break;
         }
@@ -163,7 +163,7 @@ function displayQuestion(hypothesis) {
 }
 
 function onGreen() {
-    currentAnswer = 1.0;
+    currentAnswer = -1.0;
     diagnosis();
 }
 
