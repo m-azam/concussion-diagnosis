@@ -16,8 +16,8 @@
 			<h1 class="display-3">
 				<p id="welcomeMessage">Let's begin your evaluation</p>
 			</h1>
-			<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-				data-bs-target="#uploadModalCenteredScrollable">Go</button>
+			<button type="button" class="btn btn-primary" data-bs-toggle="modal" onclick="diagnosis()" 
+			data-bs-target="#uploadModalCenteredScrollable">Go</button>
 		</div>
 	</div>
 
@@ -34,13 +34,13 @@
 						</div>
 						<div class="modal-body">
 							<div class="form-group">
-								<h2 id="question">Were you involved in a collision or accident in past 24 hours?</h6>
+								<h2 id="question">sample?</h6>
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button id="red" type="button" class="btn btn-choice btn-danger" data-bs-dismiss="modal">Yes</button>
-							<button id="yellow" type="button" class="btn btn-choice btn-warning" data-bs-dismiss="modal">Maybe</button>
-							<button id="green" type="button" class="btn btn-choice btn-success" data-bs-dismiss="modal">No</button>
+							<button id="red" type="button" class="btn btn-choice btn-danger" onclick="onRed()">Yes</button>
+							<button id="yellow" type="button" class="btn btn-choice btn-warning" onclick="onYellow()">Maybe</button>
+							<button id="green" type="button" class="btn btn-choice btn-success" onclick="onGreen()">No</button>
 						</div>
 
 					</div>
@@ -54,8 +54,8 @@
 		integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
 		crossorigin="anonymous"></script>
 	<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script src="js/Rule.js"></script>
-	<script src="js/main.js"></script>
+	<script src="js/Hypothesis.js" type="module"></script>
+	<script src="js/main.js" type="module"></script>
 </body>
 
 </html>
