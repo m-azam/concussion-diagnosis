@@ -1,6 +1,6 @@
 import { Hypothesis } from "./Hypothesis.js";
 
-window.diagnosis= diagnosis;
+window.diagnosis = diagnosis;
 window.onGreen = onGreen;
 window.onYellow = onYellow;
 window.onRed = onRed;
@@ -16,7 +16,7 @@ hypothesisMap.set(104, new Hypothesis("Meal check", "Are you unsure of what you 
 hypothesisMap.set(105, new Hypothesis("Feel right", "Are you just not feeling right?", null));
 hypothesisMap.set(106, new Hypothesis("Dizziness", "Are you feeling dizzy?", 0.7));
 hypothesisMap.set(107, new Hypothesis("Clumsy", "Have you noticed yourself dropping things?", 0.6));
-hypothesisMap.set(108, new Hypothesis("Gait check","Are you able to walk in a straight line?", 0.7));
+hypothesisMap.set(108, new Hypothesis("Gait check", "Are you able to walk in a straight line?", 0.7));
 hypothesisMap.set(109, new Hypothesis("Headache", "Are you sensing a pressue in your head or a headache?", 0.5));
 hypothesisMap.set(110, new Hypothesis("Danger Check 1", "Are you experiencing repeated vomiting?", null));
 hypothesisMap.set(111, new Hypothesis("Danger Check 2", "Are you experiencing slurred speech?", null));
@@ -50,7 +50,7 @@ function diagnosis() {
         }
 
         case 103: {
-            if (currentAnswer == 1.0) { 
+            if (currentAnswer == 1.0) {
                 setNextHypothesis(110); // Rule 6 If does not remember day of week perform danger check
             } else if (currentAnswer == -1.0) {
                 setNextHypothesis(104); // Rule 7 If remembers day of week perform meal check
@@ -59,7 +59,7 @@ function diagnosis() {
         }
 
         case 104: {
-            if (currentAnswer == 1.0) { 
+            if (currentAnswer == 1.0) {
                 setNextHypothesis(110); // Rule 8 If person does not remember meal perform danger check
             } else if (currentAnswer == -1.0) {
                 setNextHypothesis(105); // Rule 9 If remembers previous meal perform feel right check
@@ -95,6 +95,7 @@ function diagnosis() {
         }
 
         case 113: {
+            setTernary();
             if (currentAnswer == 1.0) {
                 displayHighRisk(); // Rule 16 If person is experiencing drowsiness task is to display high risk screen
             } else if (currentAnswer == -1.0) {
@@ -104,6 +105,7 @@ function diagnosis() {
         }
 
         case 105: {
+            setTernary();
             if (currentAnswer == 1.0) {
                 setNextHypothesis(106); // Rule 18 If person is not feeling right perform symptoms check
             } else if (currentAnswer == -1.0) {
@@ -144,12 +146,54 @@ function diagnosis() {
 
         case 115: {
             hypothesisMap.get(106).adjustCertainty(currentAnswer); // Rule 25 If person is sensitive to stimuli then he might be concussed
+            calculateTotalCertainty();
             break;
         }
 
         default: {
             setNextHypothesis(101);
         }
+    }
+}
+
+function calculateTotalCertainty() {
+    var positiveCertainties = [];
+    var negativeCertainties = [];
+    var positiveSum = 0.0;
+    var negativeSum = 0.0;
+    var finalCertainty = 0.0;
+    hypothesisMap.forEach((value, key) => {
+        if (value.getCertainty != null) {
+            if (value.getCertainty < 0) {
+                negativeCertainties.push(value.getCertainty);
+            } else if (value.getCertainty >= 0) {
+                positiveCertainties.push(value.getCertainty);
+            }
+        }
+    });
+    if (positiveCertainties.length > 0) {
+        positiveSum = positiveCertainties[0];
+        for (let index = 1; index < positiveCertainties.length; positiveCertainties++) {
+            positiveSum = positiveSum + positiveCertainties[index] - (positiveSum * positiveCertainties[index]);
+        }
+    }
+    if (negativeCertainties.length > 0) {
+        negativeSum = negativeCertainties[0];
+        for (let index = 1; index < negativeCertainties.length; negativeCertainties++) {
+            negativeSum = negativeSum + negativeCertainties[index] + (negativeSum * negativeCertainties[index]);
+        }
+    }
+    finalCertainty = (positiveSum + negativeSum)/(1-Math.min(positiveSum, -1 * negativeSum));
+    displayResultWithCertainty(finalCertainty);
+}
+
+function displayResultWithCertainty(finalCertainty) {
+    if (finalCertainty < 0) {
+        displayLowRisk(); // Rule 26
+    } else if (finalCertainty > 0 && finalCertainty <= 0.3) {
+        displayModerateRisk(); // Rule 27
+    } else if (finalCertainty > 0.3) {
+        displayModerateToHighRisk(); // Rule 28
     }
 }
 
@@ -187,16 +231,25 @@ function setTernary() {
 
 function displayHighRisk() {
     document.getElementById("question").innerHTML = "You are at a high risk of concussion, dial 911 immediately!";
+    document.getElementById("high-risk").style.display = 'inline';
+    hideSelectionButtons();
+}
+
+function displayModerateToHighRisk() {
+    document.getElementById("question").innerHTML = "You are at a moderate to high risk of concussion, visiting a physician is highly recomended.";
+    document.getElementById("moderate-high-risk").style.display = 'inline';
     hideSelectionButtons();
 }
 
 function displayModerateRisk() {
     document.getElementById("question").innerHTML = "You are at a moderate risk of concussion, visiting a physician is recomended.";
+    document.getElementById("moderate-risk").style.display = 'inline';
     hideSelectionButtons();
 }
 
 function displayLowRisk() {
-    document.getElementById("question").innerHTML = "You are at a low risk of concussion, visiting a physician recommended if symptoms last.";
+    document.getElementById("question").innerHTML = "You are at a low risk of concussion, visiting a physician is recommended if symptoms last.";
+    document.getElementById("low-risk").style.display = 'inline';
     hideSelectionButtons();
 }
 

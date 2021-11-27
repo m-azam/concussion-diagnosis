@@ -10,4 +10,7 @@ export class Hypothesis {
     get questionText() {
         return this.displayText;
     }
+    get getCertainty() {
+        return this.certainty;
+    }
 }
