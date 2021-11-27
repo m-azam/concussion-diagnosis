@@ -1,3 +1,10 @@
 .btn-choice {
     min-width: 150px;
 }
+.begin-btn {
+    min-width: 90px;
+}
+body {
+    background-image: url(../static/bg2.jpg);
+    background-size: cover;
+}

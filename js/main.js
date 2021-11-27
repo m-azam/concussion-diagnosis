@@ -16,7 +16,7 @@ hypothesisMap.set(104, new Hypothesis("Meal check", "Are you unsure of what you 
 hypothesisMap.set(105, new Hypothesis("Feel right", "Are you just not feeling right?", null));
 hypothesisMap.set(106, new Hypothesis("Dizziness", "Are you feeling dizzy?", 0.7));
 hypothesisMap.set(107, new Hypothesis("Clumsy", "Have you noticed yourself dropping things?", 0.6));
-hypothesisMap.set(108, new Hypothesis("Gait check", "Are you able to walk in a straight line?", 0.7));
+hypothesisMap.set(108, new Hypothesis("Gait check", "Are you unable to walk in a straight line?", 0.7));
 hypothesisMap.set(109, new Hypothesis("Headache", "Are you sensing a pressue in your head or a headache?", 0.5));
 hypothesisMap.set(110, new Hypothesis("Danger Check 1", "Are you experiencing repeated vomiting?", null));
 hypothesisMap.set(111, new Hypothesis("Danger Check 2", "Are you experiencing slurred speech?", null));
